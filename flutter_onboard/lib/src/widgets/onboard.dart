@@ -199,37 +199,55 @@ class _OnBoard extends HookConsumerWidget {
                     return SizedBox(
                       child: Column(
                         children: <Widget>[
+                          !(onBoardData[index].title == '')
+                              ? Container(
+                                  child: Text(
+                                    onBoardData[index].title,
+                                    textAlign: TextAlign.center,
+                                    style: titleStyles ??
+                                        const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                  ),
+                                )
+                              : Container(),
+                          Container(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: Color(0xff51DB99), width: 3))),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  onBoardData[index].description,
+                                  textAlign: TextAlign.center,
+                                  style: descriptionStyles ??
+                                      const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                ),
+                              )),
                           Expanded(
+                              child: Padding(
+                            padding: EdgeInsets.only(top: 20),
                             child: Image.asset(
                               onBoardData[index].imgUrl,
                               width: imageWidth,
                               height: imageHeight,
                               fit: BoxFit.contain,
                             ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              onBoardData[index].title,
-                              textAlign: TextAlign.center,
-                              style: titleStyles ??
-                                  const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            margin: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              onBoardData[index].description,
-                              textAlign: TextAlign.center,
-                              style: descriptionStyles ??
-                                  const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black54,
-                                  ),
+                          )),
+                          SizedBox(
+                            height: pageIndicatorHeight,
+                            child: PageIndicator(
+                              count: onBoardData.length,
+                              activePage: onBoardState.page,
+                              pageIndicatorStyle: pageIndicatorStyle,
                             ),
                           ),
                         ],
@@ -238,15 +256,8 @@ class _OnBoard extends HookConsumerWidget {
                   },
                 )),
           ),
-          SizedBox(
-            height: pageIndicatorHeight,
-            child: PageIndicator(
-              count: onBoardData.length,
-              activePage: onBoardState.page,
-              pageIndicatorStyle: pageIndicatorStyle,
-            ),
-          ),
           Container(
+            padding: EdgeInsets.only(top: 12),
             height: footerContentHeight,
             width: screenSize.width,
             alignment: Alignment.center,
